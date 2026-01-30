@@ -17,9 +17,11 @@ function addHabit() {
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "X";
   deleteBtn.onclick = () => {
-    li.remove();
-    saveHabits();
-  };
+  li.remove();
+  saveHabits();
+  updateStats();
+};
+;
 
   li.appendChild(span);
   li.appendChild(deleteBtn);
@@ -27,6 +29,7 @@ function addHabit() {
 
   habitInput.value = "";
   saveHabits();
+  updateStats();
 }
 
 function saveHabits() {
@@ -35,6 +38,15 @@ function saveHabits() {
 
 function loadHabits() {
   habitList.innerHTML = localStorage.getItem("habits") || "";
+  updateStats();
 }
 
 loadHabits();
+function updateStats() {
+  const habits = habitList.querySelectorAll("li");
+  const completed = habitList.querySelectorAll(".completed");
+
+  document.getElementById("totalHabits").textContent = habits.length;
+  document.getElementById("completedHabits").textContent = completed.length;
+}
+
